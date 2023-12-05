@@ -1,0 +1,22 @@
+PetSitterResponseTrackingSystem/
+│
+├── database/
+│   ├── create_tables.sql         # SQL script to create database tables
+│   └── populate_data.sql         # SQL script to populate sample data
+│
+├── frontend/
+│   ├── index.php                 # Main page or dashboard
+│   ├── login.php                 # Login page
+│   ├── add_order.php             # Form to add new orders
+│   ├── view_order.php            # View detailed information for a specific order
+│   ├── edit_order.php            # Form to edit order details
+│   ├── styles/                   # Folder for CSS stylesheets
+│   │   └── style.css             # CSS styling for the frontend
+│   └── scripts/                  # Folder for JavaScript files (if needed)
+│
+├── documentation/
+│   ├── ERD_diagram.png           # Entity Relationship Diagram image
+│   ├── project_report.pdf        # Comprehensive project report
+│   └── any_other_documentation_files/
+│
+└── README.md   
