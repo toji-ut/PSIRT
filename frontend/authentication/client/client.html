@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Requests and Comments</title>
+    <link rel="stylesheet" href="../../globalStyles/styles.css">
+</head>
+<body>
+
+    <div class="requests-container">
+        <div class="request-form">
+            <h2>Create and Manage Requests</h2>
+            <form action="client.php" method="post">
+                <label for="requestType">Type of Request:</label>
+                <select id="requestType" name="requestType">
+                    <option value="dogs">Dog Sitting</option>
+                    <option value="cats">Cat Sitting</option>
+                </select>
+
+                <label for="additionalDetails">Additional Details:</label>
+                <textarea id="additionalDetails" name="additionalDetails" rows="4" cols="50"></textarea>
+
+                <input type="submit" value="Submit Request">
+            </form>
+        </div>
+
+        <div class="comment-section">
+            <form action="client.php" method="post">
+                <input type="hidden" name="requestID" value="123"> <!-- Replace with actual request ID -->
+
+                <label for="comment">Add Comment:</label>
+                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+
+                <input type="submit" value="Add Comment">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
