@@ -18,6 +18,6 @@ PSIRT/
 │   └── project_report.pdf        # Comprehensive project report
 │
 │
-└── Hello World
+├── Hello World
 │
 └── README.md
