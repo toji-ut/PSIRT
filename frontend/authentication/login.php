@@ -1,4 +1,5 @@
 <?php
+
 // Establish database connection
 $servername = "localhost";
 $username = "root";
@@ -17,6 +18,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "SELECT * FROM User WHERE `UserID`='$username' AND `Password`='$password'";
     $result = $conn->query($sql);
+
+
+    $userID =  $username;// Replace with the actual UserID
+
+    // Start the session
+    session_start();
+
+    // Set the UserID in the session
+    $_SESSION['UserID'] = $userID;
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
