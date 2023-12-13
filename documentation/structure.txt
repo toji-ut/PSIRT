@@ -8,8 +8,8 @@ PSIRT/
 │   ├── index.php                  # Main page or dashboard
 │   ├── login.php 
 │   ├── login.php 
-│       └── client
-│           └── client.html
+│   │   └── client
+│   │      └── client.html
 │   └── globalStyles/              # Folder for CSS stylesheets
 │       └── styles.css             # CSS styling for the frontend
 │
