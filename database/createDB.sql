@@ -3,14 +3,14 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
--- Create the PSIRT schema if not exists
-CREATE DATABASE IF NOT EXISTS PSIRT;
+-- Create the PSIRT schema 
+CREATE DATABASE PSIRT;
 
 -- Use the PSIRT schema
 USE PSIRT;
 
 -- Create the association table for Orders and Animal
-CREATE TABLE IF NOT EXISTS Animal(
+CREATE TABLE Animal(
     OrderID INT NOT NULL,
     AnimalType VARCHAR(3) NOT NULL,
     PRIMARY KEY (OrderID, AnimalType),
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Animal(
     );
 
 -- Create the User table
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE User (
     User_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     LastName VARCHAR(45) NOT NULL,
     FirstName VARCHAR(45) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS User (
     Password VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Orders (
+CREATE TABLE Orders (
     OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ServiceState ENUM('pending', 'assigned', 'completed') NOT NULL DEFAULT 'pending',
     ClientID INT,
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS Orders (
     );
 
 -- Create the IPAddresses table
-CREATE TABLE IF NOT EXISTS IP_Addresses (
+CREATE TABLE IP_Addresses (
     UserID INT NOT NULL PRIMARY KEY,
     IPAddress VARCHAR(15) NOT NULL,
     CONSTRAINT FK_UserID FOREIGN KEY (UserID) REFERENCES User(User_ID)
 );
 
 -- Create the OrderComments table
-CREATE TABLE IF NOT EXISTS Order_Comments (
+CREATE TABLE Order_Comments (
     CommentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     OrderNumber INT NOT NULL,
     ResponderID INT,
