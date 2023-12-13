@@ -6,74 +6,74 @@
     <link rel="stylesheet" href="../../globalStyles/styles.css">
 </head>
 <body>
-    <div class="requests-container">
-        <div class="request-form">
-            <h2>Create and Manage Requests</h2>
-            <form action="client.php" method="post" onsubmit="return validateSelection()">
-                <label for="requestType">Type of Request:</label>
-                <select id="requestType" name="requestType" onchange="showOptions()">
-                    <option value="">Select Type</option>
-                    <option value="dogs">Dog care</option>
-                    <option value="cats">Cat care</option>
-                </select>
-                <br>
-                <div id="dogOptions" style="display:none;">
-                    <input type="checkbox" id="sitAtHome" name="sitAtHome">
-                    <label for="sitAtHome">Sit at Home</label>
-                    <input type="checkbox" id="walk" name="walk">
-                    <label for="walk">Walk</label>
-                    <input type="checkbox" id="groom" name="groom">
-                    <label for="groom">Groom</label>
-                </div>
-                <div id="catOptions" style="display:none;">
-                    <input type="checkbox" id="sitAtHomeCat" name="sitAtHomeCat">
-                    <label for="sitAtHomeCat">Sit at Home</label>
-                    <input type="checkbox" id="groomCat" name="groomCat">
-                    <label for="groomCat">Groom</label>
-                </div>
-                <input type="submit" value="Submit Request" id="submitBtn" style="display:none;">
-            </form>
-        </div>
-
-        <div class="comment-section">
-            <form action="client.php" method="post">
-                <input type="hidden" name="requestID" value="123">
-
-                <label for="comment">Add Comment:</label>
-                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-
-                <input type="submit" value="Add Comment">
-                
-            </form>
-        </div>
+<div class="requests-container">
+    <div class="request-form">
+        <h2>Create and Manage Requests</h2>
+        <form action="client.php" method="post" onsubmit="return validateSelection()">
+            <label for="requestType">Type of Request:</label>
+            <select id="requestType" name="requestType" onchange="showOptions()">
+                <option value="">Select Type</option>
+                <option value="dog">Dog care</option>
+                <option value="cat">Cat care</option>
+            </select>
+            <br>
+            <div id="dogOptions" style="display:none;">
+                <input type="checkbox" id="sitAtHome" name="sitAtHome">
+                <label for="sitAtHome">Sit at Home</label>
+                <input type="checkbox" id="walk" name="walk">
+                <label for="walk">Walk</label>
+                <input type="checkbox" id="groom" name="groom">
+                <label for="groom">Groom</label>
+            </div>
+            <div id="catOptions" style="display:none;">
+                <input type="checkbox" id="sitAtHomeCat" name="sitAtHome">
+                <label for="sitAtHome">Sit at Home</label>
+                <input type="checkbox" id="groomCat" name="groom">
+                <label for="groom">Groom</label>
+            </div>
+            <input type="submit" value="Submit Request" id="submitBtn" style="display:none;">
+        </form>
     </div>
 
-    <script>
-        function showOptions() {
-            var requestType = document.getElementById("requestType").value;
-            var dogOptions = document.getElementById("dogOptions");
-            var catOptions = document.getElementById("catOptions");
-            var submitBtn = document.getElementById("submitBtn");
+    <div class="comment-section">
+        <form action="client.php" method="post">
+            <input type="hidden" name="requestID" value="123">
 
-            if (requestType === "dogs") {
-                dogOptions.style.display = "block";
-                catOptions.style.display = "none";
-                submitBtn.style.display = "inline-block";
-            } else if (requestType === "cats") {
-                dogOptions.style.display = "none";
-                catOptions.style.display = "block";
-                submitBtn.style.display = "inline-block";
-            }
-        }
+            <label for="comment">Add Comment:</label>
+            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
 
-        function validateSelection() {
-            var selectedType = document.getElementById("requestType").value;
-            if (selectedType === "") {
-                alert("Please select a request type.");
-                return false;
-            }
-            return true;
+            <input type="submit" value="Add Comment">
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function showOptions() {
+        var requestType = document.getElementById("requestType").value;
+        var dogOptions = document.getElementById("dogOptions");
+        var catOptions = document.getElementById("catOptions");
+        var submitBtn = document.getElementById("submitBtn");
+
+        if (requestType === "dog") {
+            dogOptions.style.display = "block";
+            catOptions.style.display = "none";
+            submitBtn.style.display = "inline-block";
+        } else if (requestType === "cat") {
+            dogOptions.style.display = "none";
+            catOptions.style.display = "block";
+            submitBtn.style.display = "inline-block";
         }
-    </script>
+    }
+
+    function validateSelection() {
+        var selectedType = document.getElementById("requestType").value;
+        if (selectedType === "") {
+            alert("Please select a request type.");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
