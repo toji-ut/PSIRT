@@ -4,23 +4,14 @@
 -- MySQL Workbench Forward Engineering
 
 -- Create the PSIRT schema 
-CREATE DATABASE PSIRT;
+CREATE DATABASE IF NOT EXISTS PSIRT;
 
 -- Use the PSIRT schema
 USE PSIRT;
 
--- Create the association table for Orders and Animal
-CREATE TABLE Animal(
-    OrderID INT NOT NULL,
-    AnimalType VARCHAR(3) NOT NULL,
-    PRIMARY KEY (OrderID, AnimalType),
-    CONSTRAINT FK_OrderID_Animal FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    CONSTRAINT FK_AnimalType FOREIGN KEY (AnimalType) REFERENCES Animal(AnimalType)
-    );
-
 -- Create the User table
-CREATE TABLE User (
-    User_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS User (
+    UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     LastName VARCHAR(45) NOT NULL,
     FirstName VARCHAR(45) NOT NULL,
     Role ENUM('client', 'sitter', 'handler') NOT NULL,
@@ -29,7 +20,7 @@ CREATE TABLE User (
     Password VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE Orders (
+CREATE TABLE IF NOT EXISTS Orders (
     OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ServiceState ENUM('pending', 'assigned', 'completed') NOT NULL DEFAULT 'pending',
     ClientID INT,
@@ -37,25 +28,36 @@ CREATE TABLE Orders (
     SitterID INT,
     OrderDate DATETIME,
     DueDate DATETIME,
-    CONSTRAINT FK_ClientID FOREIGN KEY (ClientID) REFERENCES User(User_ID),
-    CONSTRAINT FK_HandlerID FOREIGN KEY (HandlerID) REFERENCES User(User_ID),
-    CONSTRAINT FK_SitterID FOREIGN KEY (SitterID) REFERENCES User(User_ID)
+    CONSTRAINT FK_ClientID FOREIGN KEY (ClientID) REFERENCES User(UserID),
+    CONSTRAINT FK_HandlerID FOREIGN KEY (HandlerID) REFERENCES User(UserID),
+    CONSTRAINT FK_SitterID FOREIGN KEY (SitterID) REFERENCES User(UserID)
     );
 
+-- Create the table for Animal
+CREATE TABLE IF NOT EXISTS Animal (
+    OrderID INT NOT NULL,
+    AnimalType VARCHAR(3) NOT NULL,
+    is_sit_at_home INT DEFAULT 0,
+    is_walk INT DEFAULT 0,
+    is_groom INT DEFAULT 0,
+    PRIMARY KEY (OrderID),
+    CONSTRAINT FK_OrderID_Animal FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+);
+
 -- Create the IPAddresses table
-CREATE TABLE IP_Addresses (
+CREATE TABLE IF NOT EXISTS IP_Addresses (
     UserID INT NOT NULL PRIMARY KEY,
-    IPAddress VARCHAR(15) NOT NULL,
-    CONSTRAINT FK_UserID FOREIGN KEY (UserID) REFERENCES User(User_ID)
+    IPAddress VARCHAR(15),
+    CONSTRAINT FK_UserID FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
 -- Create the OrderComments table
-CREATE TABLE Order_Comments (
+CREATE TABLE IF NOT EXISTS Order_Comments (
     CommentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     OrderNumber INT NOT NULL,
     ResponderID INT,
     CommentText LONGTEXT,
     CommentDate DATETIME DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT FK_OrderNumber FOREIGN KEY (OrderNumber) REFERENCES Orders(OrderID),
-    CONSTRAINT FK_ResponderID FOREIGN KEY (ResponderID) REFERENCES User(User_ID)
+    CONSTRAINT FK_ResponderID FOREIGN KEY (ResponderID) REFERENCES User(UserID)
 );
