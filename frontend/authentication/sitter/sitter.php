@@ -43,6 +43,7 @@
             echo '<table>';
             echo '<tr><th>OrderID</th><th>Service State</th><th>Client ID</th><th>Order Date</th><th>Due Date</th></tr>';
 
+            
             // Loop through the fetched data and display it in table rows
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
@@ -51,11 +52,32 @@
                 echo "<td>" . $row['ClientID'] . "</td>";
                 echo "<td>" . $row['OrderDate'] . "</td>";
                 echo "<td>" . $row['DueDate'] . "</td>";
+                echo "<form action='' method='post'>";
+                echo "<input type='hidden' name='orderID' value='" . $row['OrderID'] . "'>";
+                echo "<input type='submit' value='Complete'>";
+                echo "</form>";
+                echo "</td>";
                 echo "</tr>";
             }
         }
 
         echo '</table>';
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['completeOrder'])) {
+            $orderID = $_POST['orderID'];
+        
+            // Update the status of the order from "Assigned" to "Completed"
+            $updateQuery = "UPDATE Orders SET ServiceState = 'completed' WHERE OrderID = $orderID";
+        
+            if ($conn->query($updateQuery) === TRUE) {
+                header("Location: sitterDashboard.php"); // Redirect to the sitter dashboard after completion
+                exit();
+            } else {
+                echo "Error updating record: " . $conn->error;
+            }
+        }
+        
+        $conn->close();
         ?>
 
     </section>
@@ -103,6 +125,7 @@
         }
 
         echo '</table>';
+        $conn->close();
         ?>
     </section>
 </div>
