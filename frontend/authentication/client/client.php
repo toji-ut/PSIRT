@@ -1,56 +1,73 @@
-<?php
-session_start();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Requests and Comments</title>
+    <link rel="stylesheet" href="../../globalStyles/styles.css">
+</head>
+<body>
 
-// Establish database connection
-$servername = "localhost";
-$username = "root";
-$password = "Onkar221";
-$dbname = "PSIRT";
+<p>
+    <?php
+    session_start();
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    // Establish database connection
+    $servername = "localhost";
+    $username = "root";
+    $password = "Onkar221";
+    $dbname = "PSIRT";
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $animal = $_POST['requestType'];
-    $sitAtHome = isset($_POST['sitAtHome']) ? 1 : 0;
-    $walk = isset($_POST['walk']) ? 1 : 0;
-    $groom = isset($_POST['groom']) ? 1 : 0;
-    $currentUserID = $_SESSION['UserID'];
-
-    $comment = $_POST['comment'];
-
-    // Get the due date from the datetime-local input
-    $dueDate = null;
-
-    if($animal === 'dog') {
-        $dueDate = $_POST['selectedDateTime']; // Adjust the name based on your HTML form
-    } else if($animal === 'cat'){
-        $dueDate = $_POST['selectedDateTimeCat']; // Adjust the name based on your HTML form
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
 
-    // Insert a new order with due date
-    $createOrder = "INSERT INTO Orders(ClientID, OrderDate, DueDate) VALUES ($currentUserID, NOW(), '$dueDate')";
-    $conn->query($createOrder);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $animal = $_POST['requestType'];
+        $sitAtHome = isset($_POST['sitAtHome']) ? 1 : 0;
+        $walk = isset($_POST['walk']) ? 1 : 0;
+        $groom = isset($_POST['groom']) ? 1 : 0;
+        $currentUserID = $_SESSION['UserID'];
 
-    // Get the last inserted OrderID
-    $orderID = $conn->insert_id;
+        $comment = $_POST['comment'];
 
-    // Insert data into Animal table with the obtained OrderID
-    $logOrder = "INSERT INTO Animal(OrderID, AnimalType, is_sit_at_home, is_walk, is_groom) VALUES ($orderID, '$animal', $sitAtHome, $walk, $groom)";
+        // Get the due date from the datetime-local input
+        $dueDate = null;
 
-    if ($conn->query($logOrder) === TRUE) {
+        if($animal === 'dog') {
+            $dueDate = $_POST['selectedDateTime']; // Adjust the name based on your HTML form
+        } else if($animal === 'cat'){
+            $dueDate = $_POST['selectedDateTimeCat']; // Adjust the name based on your HTML form
+        }
 
-        //$logComment = "INSERT INTO Order_Comments(OrderNumber, ResponderID, CommentText, CommentDate) VALUES ($orderID, $currentUserID, $comment, NOW())";
-        //$conn->query($logComment);
+        // Insert a new order with due date
+        $createOrder = "INSERT INTO Orders(ClientID, OrderDate, DueDate) VALUES ($currentUserID, NOW(), '$dueDate')";
+        $conn->query($createOrder);
 
-        // Redirect to a different page to avoid form resubmission on refresh
-        header("Location: ../../SuccessPage.html");
-        exit();
+        // Get the last inserted OrderID
+        $orderID = $conn->insert_id;
+
+        // Insert data into Animal table with the obtained OrderID
+        $logOrder = "INSERT INTO Animal(OrderID, AnimalType, is_sit_at_home, is_walk, is_groom) VALUES ($orderID, '$animal', $sitAtHome, $walk, $groom)";
+
+        if ($conn->query($logOrder) === TRUE) {
+
+            $logComment = "INSERT INTO Order_Comments(OrderNumber, ResponderID, CommentText, CommentDate) VALUES ($orderID, $currentUserID, '$comment', NOW())";
+
+            if($conn->query($logComment) === TRUE) {
+                // Redirect to a different page to avoid form resubmission on refresh
+                header("Location: ../../SuccessPage.html");
+                exit();
+            }
+        }
     }
-}
 
-$conn->close();
-?>
+    $conn->close();
+    ?>
+</p>
+
+</body>
+</html>
+
+
