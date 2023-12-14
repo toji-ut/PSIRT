@@ -42,7 +42,7 @@
             }
         }
 
-        $sql = "SELECT Orders.OrderID, Orders.ServiceState, Orders.ClientID, Orders.OrderDate, Orders.DueDate, Order_Comments.CommentText, Order_Comments.CommentDate, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom
+        $sql = "SELECT Orders.OrderID, Orders.ServiceState, Orders.ClientID, Orders.OrderDate, Orders.DueDate, Order_Comments.CommentText, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom
                 FROM Orders
                 LEFT JOIN Order_Comments ON Orders.OrderID = Order_Comments.OrderNumber
                 LEFT JOIN Animal ON Orders.OrderID = Animal.OrderID
@@ -53,7 +53,7 @@
         $sitterResult = $conn->query($sqlSitters);
 
         echo '<table>';
-        echo '<tr><th>OrderID</th><th>Service State</th><th>Client ID</th><th>Order Date</th><th>Due Date</th><th>Comment Text</th><th>Comment Date</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Sitters Offered</th><th>Assign Sitter</th></tr>';
+        echo '<tr><th>OrderID</th><th>Service State</th><th>Client ID</th><th>Order Date</th><th>Due Date</th><th>Comment Text</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Sitters Offered</th><th>Assign Sitter</th></tr>';
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -64,7 +64,6 @@
                 echo "<td>" . $row['OrderDate'] . "</td>";
                 echo "<td>" . $row['DueDate'] . "</td>";
                 echo "<td>" . $row['CommentText'] . "</td>";
-                echo "<td>" . $row['CommentDate'] . "</td>";
                 echo "<td>" . $row['AnimalType'] . "</td>";
                 echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
@@ -102,12 +101,12 @@
 
         $conn->close();
         ?>
-    </section>
 
-    <section>
-        <form action="" method="post">
-            <input type="submit" name="signOut" value="Sign Out">
-        </form>
+        <section>
+            <form action="" method="post">
+                <input type="submit" name="signOut" value="Sign Out">
+            </form>
+        </section>
     </section>
 
     <?php

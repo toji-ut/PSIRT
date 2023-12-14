@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<a href="./client.html" class="redirect-button">Add Order</a>
+
 
 <div class="client-container">
     <section>
@@ -82,11 +82,11 @@
                 echo "<td>" . $row['OrderID'] . "</td>";
                 echo "<td>" . $row['OrderDate'] . "</td>";
                 echo "<td>" . $row['DueDate'] . "</td>";
+                echo "<td>" . $row['CommentText'] . "</td>";
                 echo "<td>" . $row['AnimalType'] . "</td>";
                 echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>" . ($row['is_groom'] ? 'Yes' : 'No') . "</td>";
-                echo "<td>" . $row['CommentText'] . "</td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='orderID' value='" . $row['OrderID'] . "'>";
@@ -110,6 +110,48 @@
     </section>
 
     <section>
+        <!-- Display confirmed appointments -->
+        <h2>Confirmed Appointments</h2>
+        <!-- Display confirmed service records, feedback forms, etc. -->
+
+        <?php
+        $confirmedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom, Order_Comments.CommentText
+                        FROM Orders 
+                        INNER JOIN User ON Orders.SitterID = User.UserID 
+                        LEFT JOIN Animal ON Orders.OrderID = Animal.OrderID
+                        LEFT JOIN Order_Comments ON Orders.OrderID = Order_Comments.OrderNumber
+                        WHERE Orders.ClientID = $currentUserID AND Orders.ServiceState = 'confirmed'";
+
+        $confirmedResult = $conn->query($confirmedSQL);
+
+        if ($confirmedResult->num_rows > 0) {
+            echo '<table>';
+            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Comment</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th></tr>';
+
+            while ($row = $confirmedResult->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row['FirstName'] . " " . $row['LastName'] . "</td>";
+                echo "<td>" . $row['OrderID'] . "</td>";
+                echo "<td>" . $row['OrderDate'] . "</td>";
+                echo "<td>" . $row['DueDate'] . "</td>";
+                echo "<td>" . $row['CommentText'] . "</td>";
+                echo "<td>" . $row['AnimalType'] . "</td>";
+                echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_groom'] ? 'Yes' : 'No') . "</td>";
+                echo "</td>";
+                echo "</tr>";
+            }
+
+            echo '</table>';
+        } else {
+            echo "No confirmed appointments found.";
+        }
+        ?>
+    </section>
+
+    <section>
+        <a href="./client.html" class="redirect-button">Add Order</a>
         <form action="" method="post">
             <input type="submit" name="signOut" value="Sign Out">
         </form>

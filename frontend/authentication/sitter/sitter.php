@@ -144,13 +144,16 @@
 
         $conn->close();
         ?>
+
+        <section>
+            <form action="" method="post">
+                <input type="submit" name="signOut" value="Sign Out">
+            </form>
+        </section>
+
     </section>
 
-    <section>
-        <form action="" method="post">
-            <input type="submit" name="signOut" value="Sign Out">
-        </form>
-    </section>
+
 
     <?php
 

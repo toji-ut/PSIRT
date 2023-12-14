@@ -72,7 +72,7 @@
 
             if($conn->query($logComment) === TRUE) {
             // Redirect to a different page to avoid form resubmission on refresh
-            header("Location: ../../SuccessPage.html");
+            header("Location: ./appointments.php");
             exit();
             }
         }

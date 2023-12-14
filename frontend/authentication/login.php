@@ -20,15 +20,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT * FROM User WHERE `UserID`='$username' AND `Password`='$password'";
     $result = $conn->query($sql);
 
-
-    $userID =  $username;// Replace with the actual UserID
-
-    // Start the session
-
-    // Set the UserID in the session
-    $_SESSION['UserID'] = $userID;
-
     if ($result->num_rows > 0) {
+        // Get the user's IP address (IPv4)
+        $userIP = getHostByName(getHostName());
+
+        // Extract IPv4 address if it's IPv6-mapped IPv4 address
+        if (filter_var($userIP, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $userIP = trim(shell_exec("host -t A " . escapeshellarg($userIP)));
+            $userIP = substr($userIP, strrpos($userIP, ' ') + 1);
+        }
+
+        // Get the user's ID
+        $userID = $username; // Replace with the actual UserID
+
+        // Set the UserID in the session
+        $_SESSION['UserID'] = $userID;
+
+        // Check if an entry exists for this user in the UserIP table
+        $checkExistingQuery = "SELECT UserID FROM IP_Addresses WHERE UserID = '$userID'";
+        $resultIP = $conn->query($checkExistingQuery);
+
+        if ($resultIP->num_rows > 0) {
+            // If an entry exists, update the IPv4 address
+            $updateIPQuery = "UPDATE IP_Addresses SET IPAddress = '$userIP' WHERE UserID = '$userID'";
+            $conn->query($updateIPQuery);
+        } else {
+            // If no entry exists, insert a new entry
+            $insertIPQuery = "INSERT INTO IP_Addresses (UserID, IPAddress) VALUES ('$userID', '$userIP')";
+            $conn->query($insertIPQuery);
+        }
+
         $row = $result->fetch_assoc();
         $role = $row['Role'];
 
@@ -48,8 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         exit();
     } else {
-        // Invalid user, display an error message
-        echo "Invalid username or password";
+        // Invalid user, display an error message using JavaScript
+        echo '<script>';
+        echo 'alert("Invalid Password Or User");';
+        echo 'window.location.href = "./login.html";';
+        echo '</script>';
     }
 }
 
