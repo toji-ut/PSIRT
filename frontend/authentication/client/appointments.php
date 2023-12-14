@@ -53,8 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
                 $updateOrder = "UPDATE Orders SET ServiceState = 'confirmed' WHERE OrderID = $orderID";
                 $conn->query($updateOrder);
 
-                // Additional logic for handling the acceptance action
-                // ...
 
                 // Redirect to avoid form resubmission on refresh
                 header("Location: ./appointments.php");
@@ -171,9 +169,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
         </form>
     </section>
 
-
-
-    <!-- Other sections for confirmed appointments and sign out -->
 </div>
 
 </body>
