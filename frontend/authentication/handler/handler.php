@@ -7,6 +7,21 @@
 </head>
 <body>
 
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
+    // Unset all session variables
+    $_SESSION = array();
+
+    // Destroy the session
+    session_destroy();
+
+    // Redirect to the login page
+    header("Location: ../../mainPage.html");
+    exit();
+}
+?>
+
 <div class="handler-container">
     <section>
         <!-- Display of service requests, their status, and actions -->
@@ -108,21 +123,6 @@
             </form>
         </section>
     </section>
-
-    <?php
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
-        // Unset all session variables
-        $_SESSION = array();
-
-        // Destroy the session
-        session_destroy();
-
-        // Redirect to the login page
-        header("Location: ../../mainPage.html");
-        exit();
-    }
-    ?>
 </div>
 
 </body>

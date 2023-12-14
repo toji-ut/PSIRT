@@ -7,6 +7,20 @@
 </head>
 <body>
 
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
+    // Unset all session variables
+    $_SESSION = array();
+
+    // Destroy the session
+    session_destroy();
+
+    // Redirect to the login page
+    header("Location: ../../mainPage.html");
+    exit();
+}
+?>
 
 
 <div class="client-container">
@@ -157,20 +171,7 @@
         </form>
     </section>
 
-    <?php
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
-        // Unset all session variables
-        $_SESSION = array();
-
-        // Destroy the session
-        session_destroy();
-
-        // Redirect to the login page
-        header("Location: ../../mainPage.html");
-        exit();
-    }
-    ?>
 
     <!-- Other sections for confirmed appointments and sign out -->
 </div>
