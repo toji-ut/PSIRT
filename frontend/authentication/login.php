@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Establish database connection
 $servername = "localhost";
@@ -23,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userID =  $username;// Replace with the actual UserID
 
     // Start the session
-    session_start();
 
     // Set the UserID in the session
     $_SESSION['UserID'] = $userID;
@@ -38,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ./client/client.html");
                 break;
             case 'sitter':
-                header("Location: ./sitter/sitterPage.html");
+                header("Location: ./sitter/sitter.php");
                 break;
             case 'handler':
-                header("Location: ./handler/handlerPage.html");
+                header("Location: ./handler/handler.php");
                 break;
             default:
                 echo "Invalid role";

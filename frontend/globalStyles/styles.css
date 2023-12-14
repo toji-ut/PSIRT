@@ -40,6 +40,7 @@ body {
 }
 
 .requests-container {
+    height: auto;
     width: 100%;
     max-width: 500px;
     text-align: left;
@@ -51,7 +52,7 @@ body {
 
 .handler-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     text-align: left;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -61,7 +62,7 @@ body {
 
 .sitter-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     text-align: left;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -191,4 +192,26 @@ nav ul li a {
     outline: none;
     width: 100%;
     height: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+a {
+    color: rgb(110, 110, 110);
+    text-decoration: none;
+    font-size: 25px;
 }

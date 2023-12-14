@@ -10,7 +10,7 @@
 <div class="requests-container">
     <div class="request-form">
         <h2>Create and Manage Requests</h2>
-        <form action="client.php" method="post" onsubmit="return validateSelection()">
+        <form action="client.php" method="post">
             <label for="requestType">Type of Request:</label>
             <select id="requestType" name="requestType" onchange="showOptions()">
                 <option value="">Select Type</option>
@@ -18,6 +18,7 @@
                 <option value="cat">Cat care</option>
             </select>
             <br>
+
             <div id="dogOptions" style="display:none;">
                 <input type="checkbox" id="sitAtHome" name="sitAtHome">
                 <label for="sitAtHome">Sit at Home</label>
@@ -25,56 +26,60 @@
                 <label for="walk">Walk</label>
                 <input type="checkbox" id="groom" name="groom">
                 <label for="groom">Groom</label>
+                <br>
+
+                <label for="selectedDateTimeDog">Select Date and Time:</label>
+                <input type="datetime-local" id="selectedDateTimeDog" name="selectedDateTime">
             </div>
+
             <div id="catOptions" style="display:none;">
                 <input type="checkbox" id="sitAtHomeCat" name="sitAtHome">
                 <label for="sitAtHome">Sit at Home</label>
                 <input type="checkbox" id="groomCat" name="groom">
                 <label for="groom">Groom</label>
+                <br>
+
+                <label for="selectedDateTimeCat">Select Date and Time:</label>
+                <input type="datetime-local" id="selectedDateTimeCat" name="selectedDateTime">
             </div>
+
+            <div id="commentSection" style="display:none;">
+                <input type="hidden" name="requestID" value="123">
+                <label for="comment">Add Comment:</label>
+                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+            </div>
+
             <input type="submit" value="Submit Request" id="submitBtn" style="display:none;">
-        </form>
-    </div>
-
-    <div class="comment-section">
-        <form action="client.php" method="post">
-            <input type="hidden" name="requestID" value="123">
-
-            <label for="comment">Add Comment:</label>
-            <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
-
-            <input type="submit" value="Add Comment">
-
         </form>
     </div>
 </div>
 
 <script>
     function showOptions() {
-        var requestType = document.getElementById("requestType").value;
-        var dogOptions = document.getElementById("dogOptions");
-        var catOptions = document.getElementById("catOptions");
-        var submitBtn = document.getElementById("submitBtn");
+        const requestType = document.getElementById("requestType").value;
+        const dogOptions = document.getElementById("dogOptions");
+        const catOptions = document.getElementById("catOptions");
+        const commentSection = document.getElementById("commentSection");
+        const submitBtn = document.getElementById("submitBtn");
 
         if (requestType === "dog") {
             dogOptions.style.display = "block";
             catOptions.style.display = "none";
+            commentSection.style.display = "block";
             submitBtn.style.display = "inline-block";
         } else if (requestType === "cat") {
             dogOptions.style.display = "none";
             catOptions.style.display = "block";
+            commentSection.style.display = "block";
             submitBtn.style.display = "inline-block";
+        } else if(requestType === "") {
+            dogOptions.style.display = "none";
+            catOptions.style.display = "none";
+            commentSection.style.display = "none";
+            submitBtn.style.display = "none";
         }
-    }
-
-    function validateSelection() {
-        var selectedType = document.getElementById("requestType").value;
-        if (selectedType === "") {
-            alert("Please select a request type.");
-            return false;
-        }
-        return true;
     }
 </script>
+
 </body>
 </html>
