@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<a href="./client.html" class="redirect-button">Add Order</a>
+
 <div class="client-container">
     <section>
         <!-- Display assigned sitters and appointments -->
@@ -106,6 +108,27 @@
         }
         ?>
     </section>
+
+    <section>
+        <form action="" method="post">
+            <input type="submit" name="signOut" value="Sign Out">
+        </form>
+    </section>
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
+        // Unset all session variables
+        $_SESSION = array();
+
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to the login page
+        header("Location: ../../mainPage.html");
+        exit();
+    }
+    ?>
 
     <!-- Other sections for confirmed appointments and sign out -->
 </div>

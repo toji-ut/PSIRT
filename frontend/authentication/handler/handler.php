@@ -103,6 +103,7 @@
         $conn->close();
         ?>
     </section>
+
     <section>
         <form action="" method="post">
             <input type="submit" name="signOut" value="Sign Out">
