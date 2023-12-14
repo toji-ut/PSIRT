@@ -27,26 +27,22 @@
                 <input type="checkbox" id="groom" name="groom">
                 <label for="groom">Groom</label>
                 <br>
-
-                <label for="selectedDateTimeDog">Select Date and Time:</label>
-                <input type="datetime-local" id="selectedDateTimeDog" name="selectedDateTime">
+                <label for="selectedDateTime">Select Date and Time:</label>
+                <input type="datetime-local" id="selectedDateTime" name="selectedDateTime">
             </div>
-
             <div id="catOptions" style="display:none;">
                 <input type="checkbox" id="sitAtHomeCat" name="sitAtHome">
                 <label for="sitAtHome">Sit at Home</label>
                 <input type="checkbox" id="groomCat" name="groom">
                 <label for="groom">Groom</label>
                 <br>
-
                 <label for="selectedDateTimeCat">Select Date and Time:</label>
-                <input type="datetime-local" id="selectedDateTimeCat" name="selectedDateTime">
+                <input type="datetime-local" id="selectedDateTimeCat" name="selectedDateTimeCat">
             </div>
 
             <div id="commentSection" style="display:none;">
-                <input type="hidden" name="requestID" value="123">
                 <label for="comment">Add Comment:</label>
-                <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+                <input type="text" id="comment" name="comment" placeholder="Enter your comment here">
             </div>
 
             <input type="submit" value="Submit Request" id="submitBtn" style="display:none;">

@@ -20,17 +20,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $groom = isset($_POST['groom']) ? 1 : 0;
     $currentUserID = $_SESSION['UserID'];
 
-    $dueDate = null;
+    $comment = $_POST['comment'];
 
     // Get the due date from the datetime-local input
+    $dueDate = null;
+
     if($animal === 'dog') {
-        $dueDate = $_POST['selectedDateTimeDog'];
+        $dueDate = $_POST['selectedDateTime']; // Adjust the name based on your HTML form
     } else if($animal === 'cat'){
-        $dueDate = $_POST['selectedDateTimeCat'];
+        $dueDate = $_POST['selectedDateTimeCat']; // Adjust the name based on your HTML form
     }
 
     // Insert a new order with due date
-    $createOrder = "INSERT INTO Orders(ClientID, OrderDate, DueDate) VALUES ($currentUserID, NOW(), $dueDate)";
+    $createOrder = "INSERT INTO Orders(ClientID, OrderDate, DueDate) VALUES ($currentUserID, NOW(), '$dueDate')";
     $conn->query($createOrder);
 
     // Get the last inserted OrderID
@@ -38,7 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert data into Animal table with the obtained OrderID
     $logOrder = "INSERT INTO Animal(OrderID, AnimalType, is_sit_at_home, is_walk, is_groom) VALUES ($orderID, '$animal', $sitAtHome, $walk, $groom)";
+
     if ($conn->query($logOrder) === TRUE) {
+
+        //$logComment = "INSERT INTO Order_Comments(OrderNumber, ResponderID, CommentText, CommentDate) VALUES ($orderID, $currentUserID, $comment, NOW())";
+        //$conn->query($logComment);
 
         // Redirect to a different page to avoid form resubmission on refresh
         header("Location: ../../SuccessPage.html");
