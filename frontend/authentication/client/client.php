@@ -65,17 +65,17 @@
     $logOrder = "INSERT INTO Animal(OrderID, AnimalType, is_sit_at_home, is_walk, is_groom) VALUES ($orderID, '$animal',
     $sitAtHome, $walk, $groom)";
 
-    if ($conn->query($logOrder) === TRUE) {
+        if ($conn->query($logOrder) === TRUE) {
 
-    $logComment = "INSERT INTO Order_Comments(OrderNumber, ResponderID, CommentText, CommentDate) VALUES ($orderID,
-    $currentUserID, '$comment', NOW())";
+        $logComment = "INSERT INTO Order_Comments(OrderNumber, ResponderID, CommentText, CommentDate) VALUES ($orderID,
+        $currentUserID, '$comment', NOW())";
 
-    if($conn->query($logComment) === TRUE) {
-    // Redirect to a different page to avoid form resubmission on refresh
-    header("Location: ../../SuccessPage.html");
-    exit();
-    }
-    }
+            if($conn->query($logComment) === TRUE) {
+            // Redirect to a different page to avoid form resubmission on refresh
+            header("Location: ../../SuccessPage.html");
+            exit();
+            }
+        }
     }
 
     $conn->close();
