@@ -34,7 +34,7 @@
         $currentUserID = $_SESSION['UserID'];
 
         // Retrieve data from the database
-        $sql = "SELECT OrderID, ServiceState, ClientID, OrderDate, DueDate FROM Orders WHERE `SitterID` = $currentUserID AND `ServiceState`= 'assigned'";
+        $sql = "SELECT OrderID, ServiceState, ClientID, OrderDate, DueDate FROM Orders WHERE `SitterID` = $currentUserID AND `ServiceState`= 'confirmed'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
