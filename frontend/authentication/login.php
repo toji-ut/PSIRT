@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirect based on user role
         switch ($role) {
             case 'client':
-                header("Location: ./client/client.html");
+                header("Location: ./client/appointments.php");
                 break;
             case 'sitter':
                 header("Location: ./sitter/sitter.php");

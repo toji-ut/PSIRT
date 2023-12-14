@@ -24,12 +24,10 @@ CREATE TABLE IF NOT EXISTS Orders (
     OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ServiceState ENUM('pending', 'assigned', 'completed') NOT NULL DEFAULT 'pending',
     ClientID INT,
-    HandlerID INT,
     SitterID INT,
     OrderDate DATETIME,
     DueDate DATETIME,
     CONSTRAINT FK_ClientID FOREIGN KEY (ClientID) REFERENCES User(UserID),
-    CONSTRAINT FK_HandlerID FOREIGN KEY (HandlerID) REFERENCES User(UserID),
     CONSTRAINT FK_SitterID FOREIGN KEY (SitterID) REFERENCES User(UserID)
     );
 

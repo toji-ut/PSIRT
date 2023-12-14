@@ -63,23 +63,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Your existing code...
         $currentUserID = $_SESSION['UserID'];
 
-        $sql = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName 
+        $assignedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom
             FROM Orders 
             INNER JOIN User ON Orders.SitterID = User.UserID 
+            LEFT JOIN Animal ON Orders.OrderID = Animal.OrderID
+            LEFT JOIN Order_Comments ON Orders.OrderID = Order_Comments.OrderNumber
             WHERE Orders.ClientID = $currentUserID AND Orders.ServiceState = 'assigned'";
 
-        $result = $conn->query($sql);
+        $assignedResult = $conn->query($assignedSQL);
 
-        if ($result->num_rows > 0) {
+        if ($assignedResult->num_rows > 0) {
             echo '<table>';
-            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Accept</th><th>Decline</th></tr>';
+            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Accept</th><th>Decline</th></tr>';
 
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $assignedResult->fetch_assoc()) {
                 echo "<tr>";
                 echo "<td>" . $row['FirstName'] . " " . $row['LastName'] . "</td>";
                 echo "<td>" . $row['OrderID'] . "</td>";
                 echo "<td>" . $row['OrderDate'] . "</td>";
                 echo "<td>" . $row['DueDate'] . "</td>";
+                echo "<td>" . $row['AnimalType'] . "</td>";
+                echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_groom'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>";
                 echo "<form action='' method='post'>";
                 echo "<input type='hidden' name='orderID' value='" . $row['OrderID'] . "'>";
@@ -103,22 +109,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
 
     <section>
-        <!-- Display completed services and actions -->
+        <!-- Display confirmed appointments -->
         <h2>Confirmed Appointments</h2>
-        <!-- Display completed service records, feedback forms, etc. -->
+        <!-- Display confirmed service records, feedback forms, etc. -->
 
         <?php
         // Display confirmed appointments
-        $confirmedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName 
+        $confirmedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom
             FROM Orders 
             INNER JOIN User ON Orders.SitterID = User.UserID 
+            LEFT JOIN Animal ON Orders.OrderID = Animal.OrderID
+            LEFT JOIN Order_Comments ON Orders.OrderID = Order_Comments.OrderNumber
             WHERE Orders.ClientID = $currentUserID AND Orders.ServiceState = 'confirmed'";
 
         $confirmedResult = $conn->query($confirmedSQL);
 
         if ($confirmedResult->num_rows > 0) {
             echo '<table>';
-            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th></tr>';
+            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th></tr>';
 
             while ($confirmedRow = $confirmedResult->fetch_assoc()) {
                 echo "<tr>";
@@ -126,6 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "<td>" . $confirmedRow['OrderID'] . "</td>";
                 echo "<td>" . $confirmedRow['OrderDate'] . "</td>";
                 echo "<td>" . $confirmedRow['DueDate'] . "</td>";
+                echo "<td>" . $confirmedRow['AnimalType'] . "</td>";
+                echo "<td>" . ($confirmedRow['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($confirmedRow['is_walk'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($confirmedRow['is_groom'] ? 'Yes' : 'No') . "</td>";
                 echo "</tr>";
             }
 
@@ -135,6 +147,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
     </section>
+    <section>
+        <form action="" method="post">
+            <input type="submit" name="signOut" value="Sign Out">
+        </form>
+    </section>
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
+        // Unset all session variables
+        $_SESSION = array();
+
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to the login page
+        header("Location: ../../mainPage.html");
+        exit();
+    }
+    ?>
 </div>
 
 </body>

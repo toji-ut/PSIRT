@@ -42,14 +42,18 @@
             }
         }
 
-        $sql = "SELECT OrderID, ServiceState, ClientID, OrderDate, DueDate FROM Orders WHERE `ServiceState`= 'pending'";
+        $sql = "SELECT Orders.OrderID, Orders.ServiceState, Orders.ClientID, Orders.OrderDate, Orders.DueDate, Order_Comments.CommentText, Order_Comments.CommentDate, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom
+                FROM Orders
+                LEFT JOIN Order_Comments ON Orders.OrderID = Order_Comments.OrderNumber
+                LEFT JOIN Animal ON Orders.OrderID = Animal.OrderID
+                WHERE Orders.ServiceState = 'pending'";
         $result = $conn->query($sql);
 
         $sqlSitters = "SELECT UserID, FirstName, LastName FROM User WHERE Role = 'sitter'";
         $sitterResult = $conn->query($sqlSitters);
 
         echo '<table>';
-        echo '<tr><th>OrderID</th><th>Service State</th><th>Client ID</th><th>Order Date</th><th>Due Date</th><th>Sitters Offered</th><th>Assign Sitter</th></tr>';
+        echo '<tr><th>OrderID</th><th>Service State</th><th>Client ID</th><th>Order Date</th><th>Due Date</th><th>Comment Text</th><th>Comment Date</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Sitters Offered</th><th>Assign Sitter</th></tr>';
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -59,6 +63,12 @@
                 echo "<td>" . $row['ClientID'] . "</td>";
                 echo "<td>" . $row['OrderDate'] . "</td>";
                 echo "<td>" . $row['DueDate'] . "</td>";
+                echo "<td>" . $row['CommentText'] . "</td>";
+                echo "<td>" . $row['CommentDate'] . "</td>";
+                echo "<td>" . $row['AnimalType'] . "</td>";
+                echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
+                echo "<td>" . ($row['is_groom'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>"; // Column for dropdown menu
 
                 // Dropdown menu for available sitters
@@ -84,6 +94,8 @@
                 // Reset sitters result pointer for next row
                 $sitterResult->data_seek(0);
             }
+        } else {
+            echo "<p>No pending service requests.</p>";
         }
 
         echo '</table>';
@@ -91,6 +103,26 @@
         $conn->close();
         ?>
     </section>
+    <section>
+        <form action="" method="post">
+            <input type="submit" name="signOut" value="Sign Out">
+        </form>
+    </section>
+
+    <?php
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
+        // Unset all session variables
+        $_SESSION = array();
+
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to the login page
+        header("Location: ../../mainPage.html");
+        exit();
+    }
+    ?>
 </div>
 
 </body>
