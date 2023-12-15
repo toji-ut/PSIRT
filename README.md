@@ -59,6 +59,7 @@ PSIRT/
 │   ├── ERD_diagram.png           # Entity Relationship Diagram image
 │   ├── structure.txt
 │   ├── DBMS Final Presentation.pdf        # Comprehensive project report
+│   ├── Normalization table
 │   └── Website demo
 │
 └── README.md
