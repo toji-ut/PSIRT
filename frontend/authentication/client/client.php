@@ -14,17 +14,14 @@
         // Unset all session variables
         $_SESSION = array();
 
-        // Destroy the session
         session_destroy();
 
-        // Redirect to the login page
         header("Location: ../../mainPage.html");
         exit();
     }
 
     session_start();
 
-    // Establish database connection
     $servername = "localhost";
     $username = "root";
     $password = "Onkar221";
@@ -45,13 +42,12 @@
 
     $comment = $_POST['comment'];
 
-    // Get the due date from the datetime-local input
     $dueDate = null;
 
     if($animal === 'dog') {
-    $dueDate = $_POST['selectedDateTime']; // Adjust the name based on your HTML form
+    $dueDate = $_POST['selectedDateTime']; 
     } else if($animal === 'cat'){
-    $dueDate = $_POST['selectedDateTimeCat']; // Adjust the name based on your HTML form
+    $dueDate = $_POST['selectedDateTimeCat']; 
     }
 
     // Insert a new order with due date
@@ -71,7 +67,6 @@
         $currentUserID, '$comment', NOW())";
 
             if($conn->query($logComment) === TRUE) {
-            // Redirect to a different page to avoid form resubmission on refresh
             header("Location: ./appointments.php");
             exit();
             }

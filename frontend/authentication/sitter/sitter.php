@@ -13,10 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     // Unset all session variables
     $_SESSION = array();
 
-    // Destroy the session
     session_destroy();
 
-    // Redirect to the login page
     header("Location: ../../mainPage.html");
     exit();
 }
@@ -26,11 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     <section>
         <!-- List of assigned service requests and access to client info -->
         <h2>Assigned Service Requests</h2>
-        <!-- Display client info, service report forms, etc. -->
+        <!-- Display client info, order info -->
 
         <?php
 
-        // Establish database connection
         $servername = "localhost";
         $username = "root";
         $password = "Onkar221";
@@ -42,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        // Start the session
         session_start();
 
         // Set the UserID in the session
@@ -89,11 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['completeOrder'])) {
             $orderID = $_POST['orderID'];
 
-            // Update the status of the order from "Assigned" to "Completed"
             $updateQuery = "UPDATE Orders SET ServiceState = 'completed' WHERE OrderID = $orderID";
 
             if ($conn->query($updateQuery) === TRUE) {
-                header("Location: ./sitter.php"); // Redirect to the sitter dashboard after completion
+                header("Location: ./sitter.php"); 
                 exit();
             } else {
                 echo "Error updating record: " . $conn->error;
@@ -108,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     <section>
         <!-- Display completed services and actions -->
         <h2>Completed Services</h2>
-        <!-- Display completed service records, feedback forms, etc. -->
+        <!-- Display completed service orders -->
 
         <?php
         session_start();

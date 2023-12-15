@@ -13,10 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     // Unset all session variables
     $_SESSION = array();
 
-    // Destroy the session
     session_destroy();
 
-    // Redirect to the login page
     header("Location: ../../mainPage.html");
     exit();
 }
@@ -27,12 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     <section>
         <!-- Display assigned sitters and appointments -->
         <h2>Assigned Sitters and Appointments</h2>
-        <!-- List of assigned sitters, appointments, and actions -->
+        <!-- List of assigned sitters and orders -->
 
         <?php
         session_start();
 
-        // Establish database connection
         $servername = "localhost";
         $username = "root";
         $password = "Onkar221";
@@ -53,8 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
                 $updateOrder = "UPDATE Orders SET ServiceState = 'confirmed' WHERE OrderID = $orderID";
                 $conn->query($updateOrder);
 
-
-                // Redirect to avoid form resubmission on refresh
                 header("Location: ./appointments.php");
                 exit();
             } else if (isset($_POST['declineSitter'])) {
@@ -63,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
                 $updateOrder = "UPDATE Orders SET SitterID = null, ServiceState = 'pending' WHERE OrderID = $orderID";
 
                 if ($conn->query($updateOrder) === TRUE) {
-                    // Redirect after declining the sitter
                     header("Location: ./appointments.php");
                     exit();
                 } else {
@@ -72,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
             }
         }
 
-        // Your existing code...
         $currentUserID = $_SESSION['UserID'];
 
         $assignedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom, Order_Comments.CommentText
@@ -124,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     <section>
         <!-- Display confirmed appointments -->
         <h2>Confirmed Appointments</h2>
-        <!-- Display confirmed service records, feedback forms, etc. -->
+        <!-- Display confirmed orders -->
 
         <?php
         $confirmedSQL = "SELECT Orders.OrderID, Orders.OrderDate, Orders.DueDate, User.FirstName, User.LastName, Animal.AnimalType, Animal.is_sit_at_home, Animal.is_walk, Animal.is_groom, Order_Comments.CommentText

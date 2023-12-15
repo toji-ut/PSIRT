@@ -13,10 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     // Unset all session variables
     $_SESSION = array();
 
-    // Destroy the session
     session_destroy();
 
-    // Redirect to the login page
     header("Location: ../../mainPage.html");
     exit();
 }
@@ -26,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
     <section>
         <!-- Display of service requests, their status, and actions -->
         <h2>Service Requests</h2>
-        <!-- List of service requests, accept/deny buttons, etc. -->
+        <!-- List of orders, accept/deny buttons -->
         <?php
         session_start();
 
@@ -50,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
             $updateQuery = "UPDATE Orders SET SitterID = $selectedSitterID, ServiceState = 'assigned' WHERE OrderID = $orderID";
 
             if ($conn->query($updateQuery) === TRUE) {
-                header("Location: ./handler.php"); // Redirect after assigning the sitter
+                header("Location: ./handler.php"); 
                 exit();
             } else {
                 echo "Error updating record: " . $conn->error;
@@ -83,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
                 echo "<td>" . ($row['is_sit_at_home'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>" . ($row['is_walk'] ? 'Yes' : 'No') . "</td>";
                 echo "<td>" . ($row['is_groom'] ? 'Yes' : 'No') . "</td>";
-                echo "<td>"; // Column for dropdown menu
+                echo "<td>"; 
 
                 // Dropdown menu for available sitters
                 echo "<form action='' method='post'>";
@@ -95,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
                 echo "</select>";
 
                 echo "</td>";
-                echo "<td>"; // Column for assign button
+                echo "<td>"; 
 
                 // Assign button for each row
                 echo "<input type='submit' name='assignSitter' value='Assign'>";
