@@ -2,22 +2,41 @@ PSIRT/
 │
 ├── database/
 │   ├── createDB.sql         # SQL script to create database tables
-│   └── insetData.sql         # SQL script to populate sample data
+│   └── insertData.sql       # SQL script to populate sample data
 │
 ├── frontend/
-│   ├── index.php                  # Main page or dashboard
-│   ├── login.php 
-│   ├── login.php 
-│   │   └── client
-│   │      └── client.html
+│   ├── mainPage.html              # Main page or dashboard
+│   ├── contactForm.html
+│   │
+│   ├── assets/
+│   │      ├── dogPaw.png
+│   │      ├── nbackground.png
+│   │      ├── paws.jpg
+│   │      ├── Picture2.png
+│   │      └── walking.png
+│   │
+│   ├── authentication/
+│   │      ├── login.html
+│   │      ├── login.php
+│   │      │
+│   │      ├── client/
+│   │      │     ├── appointments.php
+│   │      │     ├── client.html
+│   │      │     └──client.php
+│   │      │
+│   │      ├── handler/
+│   │      │     └──handler.php
+│   │      │
+│   │      └── sitter/
+│   │            └──sitter.php
+│   │
 │   └── globalStyles/              # Folder for CSS stylesheets
 │       └── styles.css             # CSS styling for the frontend
 │
 ├── documentation/
 │   ├── ERD_diagram.png           # Entity Relationship Diagram image
-│   └── project_report.pdf        # Comprehensive project report
+│   ├── structure.txt
+│   └── DBMS Final Presentation.pdf        # Comprehensive project report
 │
-│
-├── Hello World
 │
 └── README.md
