@@ -11,9 +11,7 @@ PSIRT/
 │   ├── assets/
 │   │      ├── dogPaw.png
 │   │      ├── nbackground.png
-│   │      ├── paws.jpg
-│   │      ├── Picture2.png
-│   │      └── walking.png
+│   │      └── Picture2.png
 │   │
 │   ├── authentication/
 │   │      ├── login.html
@@ -36,7 +34,7 @@ PSIRT/
 ├── documentation/
 │   ├── ERD_diagram.png           # Entity Relationship Diagram image
 │   ├── structure.txt
-│   └── DBMS Final Presentation.pdf        # Comprehensive project report
-│
+│   ├── DBMS Final Presentation.pdf        # Comprehensive project report
+│   └── Website demo
 │
 └── README.md
