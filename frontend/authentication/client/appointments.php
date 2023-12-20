@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
 
         if ($assignedResult->num_rows > 0) {
             echo '<table>';
-            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Comment</th><th>Accept</th><th>Decline</th></tr>';
+            echo '<tr><th>Sitter Name</th><th>OrderID</th><th>Order Date</th><th>Due Date</th><th>Comment</th><th>Animal Type</th><th>Sit at Home</th><th>Walk</th><th>Groom</th><th>Accept</th><th>Decline</th></tr>';
 
             while ($row = $assignedResult->fetch_assoc()) {
                 echo "<tr>";
