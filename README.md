@@ -25,42 +25,43 @@ Below is the structure of our project repository:
 PSIRT/
 │
 ├── database/
-│   ├── createDB.sql         # SQL script to create database tables
-│   └── insertData.sql       # SQL script to populate sample data
+│   ├── createDB.sql         # SQL script to create database tables.
+│   └── insertData.sql       # SQL script to populate sample data.
 │
 ├── frontend/
-│   ├── mainPage.html              # Main page or dashboard
-│   ├── contactForm.html
+│   ├── mainPage.html        # Main Page with login and contact us redirects.
+│   ├── contactForm.html     # Contact Us Page.
 │   │
 │   ├── assets/
-│   │      ├── dogPaw.png
-│   │      ├── nbackground.png
-│   │      └── Picture2.png
+│   │      ├── dogPaw.png         # background Assets.
+│   │      ├── nbackground.png     
+│   │      └── Picture2.png        
 │   │
 │   ├── authentication/
-│   │      ├── login.html
-│   │      ├── login.php
+│   │      ├── login.html   # Main login page for form display.
+│   │      ├── login.php    # Authentication and redirect based on authentication.
 │   │      │
 │   │      ├── client/
-│   │      │     ├── appointments.php
-│   │      │     ├── client.html
-│   │      │     └──client.php
+│   │      │     ├── appointments.php   # To Display all the appointments that have to be confirmed and or completed.
+│   │      │     ├── client.html        # The main display of the form to create appointments.
+│   │      │     └── client.php         # The backend of sending info to DB.
 │   │      │
 │   │      ├── handler/
-│   │      │     └──handler.php
+│   │      │     └── handler.php        # Shows all the appointments that has to be assigned to a sitter.
 │   │      │
 │   │      └── sitter/
-│   │            └──sitter.php
+│   │            └── sitter.php         # Shows all the appointments assigned to the sitter. 
 │   │
-│   └── globalStyles/              # Folder for CSS stylesheets
-│       └── styles.css             # CSS styling for the frontend
+│   └── globalStyles/              # Folder for CSS stylesheets.
+│       └── styles.css             # CSS styling for the frontend.
 │
 ├── documentation/
-│   ├── ERD_diagram.png           # Entity Relationship Diagram image
-│   ├── structure.txt
-│   ├── DBMS Final Presentation.pdf        # Comprehensive project report
-│   ├── Normalization table
-│   └── Website demo
+│   ├── ERD_diagram.png           # Entity Relationship Diagram image.
+│   ├── structure.txt             # This tree of files.
+│   ├── DBMS Final Presentation.pdf        # Comprehensive project report.
+│   ├── Normalization table       # The schema normalized to 3NF. 
+│   └── Website demo              # The video demonstration of the full stack project.
 │
 └── README.md
 ```
+
