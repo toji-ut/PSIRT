@@ -65,4 +65,4 @@ PSIRT/
 └── README.md
 ```
 
-![Website_Demo](/documentation/Website_Demo.gif)
+<img width="1920" alt="Demo" src="documentation/output.gif">
