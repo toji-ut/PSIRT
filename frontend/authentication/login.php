@@ -4,7 +4,7 @@ session_start();
 // Establish database connection
 $servername = "localhost";
 $username = "root";
-$password = "Onkar221";
+$password = "";
 $dbname = "PSIRT";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
