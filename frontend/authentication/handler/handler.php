@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signOut'])) {
         // Establish database connection
         $servername = "localhost";
         $username = "root";
-        $password = "Onkar221";
+        $password = "";
         $dbname = "PSIRT";
 
         $conn = new mysqli($servername, $username, $password, $dbname);
